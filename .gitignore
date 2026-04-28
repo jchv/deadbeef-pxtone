@@ -1,0 +1,11 @@
+# Make
+/pxtone.so
+/compile_flags.txt
+*.o
+
+# Direnv
+/.direnv
+
+# Nix
+/result
+/result-*
