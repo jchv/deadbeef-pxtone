@@ -3,7 +3,7 @@ DEADBEEF_ROOT ?= /opt/deadbeef
 PXTONE_ROOT ?= ./pxtone
 PXTONE_SOURCES := $(wildcard $(PXTONE_ROOT)/*.cpp)
 PXTONE_OBJECTS := $(PXTONE_SOURCES:.cpp=.o)
-PKGCONFIG_DEPS := vorbis vorbisfile ogg
+PKGCONFIG_DEPS := vorbisfile vorbis ogg
 CXXFLAGS ?= \
 	-g -O2 \
 	-fvisibility=hidden \
