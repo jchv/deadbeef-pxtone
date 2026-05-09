@@ -8,8 +8,8 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "deadbeef-pxtone";
-  version = "unstable";
+  pname = "deadbeef-pxtone-plugin";
+  version = "0-unstable";
 
   src = ./.;
 
@@ -23,21 +23,11 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  buildFlags = [
-    "DEADBEEF_ROOT=${deadbeef}"
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/lib/deadbeef/
-    cp *.so $out/lib/deadbeef/
-
-    runHook postInstall
-  '';
+  makeFlags = [ "DEADBEEF_ROOT=${deadbeef}" ];
+  installFlags = [ "DEADBEEF_ROOT=$(out)" ];
 
   meta = with lib; {
-    description = "Pxtone Collage music plugin for DeaDBeeF";
+    description = "Pxtone Collage music decoder plugin for the DeaDBeeF music player";
     license = licenses.mit;
     platforms = platforms.linux;
   };
