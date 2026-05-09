@@ -16,6 +16,12 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Configure Git
+        run: |
+          git config --global user.name '${{ steps.generate-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com'
       - uses: NixOS/nix-installer-action@main
       - run: nix flake update
       - run: nix flake check
@@ -33,8 +39,6 @@ jobs:
               gh pr edit "$pr_num" --title "$title" --body "$body"
             fi
           }
-          git config --global user.email "3658531+deadbeef-pxtone-updater[bot]@users.noreply.github.com"
-          git config --global user.name "deadbeef-pxtone-updater"
           if ! git diff --quiet; then
             git checkout -B nix-flake-auto-update
             git commit -am "Update Nix flake inputs"
